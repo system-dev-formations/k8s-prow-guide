@@ -116,9 +116,8 @@ spec:
     description: When the job finished running.
     JSONPath: .status.completionTime
   - name: State
-    description: The state of the job.
-    name: state
     type: string
+    description: The state of the job.
     JSONPath: .status.state
 ---
 apiVersion: apps/v1
@@ -196,6 +195,10 @@ spec:
       - name: plugins
         configMap:
           name: plugins
+  selector:
+    matchLabels:
+      app: hook
+
 ---
 apiVersion: v1
 kind: Service
@@ -252,6 +255,10 @@ spec:
       - name: job-config
         configMap:
           name: job-config
+  selector:
+    matchLabels:
+      app: plank
+
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -287,6 +294,10 @@ spec:
       - name: job-config
         configMap:
           name: job-config
+  selector:
+    matchLabels:
+      app: sinker
+
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -353,6 +364,9 @@ spec:
       - name: gcs-creds
         secret:
           secretName: gcs-sa
+  selector:
+    matchLabels:
+      app: deck
 ---
 apiVersion: v1
 kind: Service
@@ -405,6 +419,10 @@ spec:
       - name: job-config
         configMap:
           name: job-config
+  selector:
+    matchLabels:
+      app: horologium
+
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -451,6 +469,9 @@ spec:
       - name: job-config
         configMap:
           name: job-config
+  selector:
+    matchLabels:
+      app: tide
 ---
 apiVersion: v1
 kind: Service
